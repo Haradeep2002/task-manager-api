@@ -1,3 +1,5 @@
+//split index.js into 2 parts to support testing
+
 const express = require('express')
 require('./db/mongoose')
 const userRouter = require('./routers/user')

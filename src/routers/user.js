@@ -1,5 +1,7 @@
 const express = require('express')
+//file upload
 const multer = require('multer')
+//modify files
 const sharp = require('sharp')
 const User = require('../models/user')
 const auth = require('../middleware/auth')
@@ -89,6 +91,7 @@ const upload = multer({
         fileSize: 1000000
     },
     fileFilter(req, file, cb) {
+        //regex
         if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
             return cb(new Error('Please upload an image'))
         }

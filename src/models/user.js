@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const Task = require('./task')
 
+//can be directly done in model but this acts as mongoose middleware
+//pre,post,etc were possible due to this syntax
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -55,6 +57,8 @@ const userSchema = new mongoose.Schema({
     timestamps: true
 })
 
+//already link is crated in task but in User also there needs to be something to access Task
+//it is just virtual
 userSchema.virtual('tasks', {
     ref: 'Task',
     localField: '_id',

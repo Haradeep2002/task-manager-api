@@ -3,6 +3,7 @@ const Task = require('../models/task')
 const auth = require('../middleware/auth')
 const router = new express.Router()
 
+//express middleware
 router.post('/tasks', auth, async (req, res) => {
     const task = new Task({
         ...req.body,
@@ -10,6 +11,7 @@ router.post('/tasks', auth, async (req, res) => {
     })
 
     try {
+        //to save to database
         await task.save()
         res.status(201).send(task)
     } catch (e) {
@@ -34,12 +36,15 @@ router.get('/tasks', auth, async (req, res) => {
     }
 
     try {
+        //owner,virtual,tasks
         await req.user.populate({
             path: 'tasks',
             match,
             options: {
+                //pagination
                 limit: parseInt(req.query.limit),
                 skip: parseInt(req.query.skip),
+                //sort
                 sort
             }
         }).execPopulate()
